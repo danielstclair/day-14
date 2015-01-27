@@ -7,17 +7,12 @@ function onReady() {
 	function onSearchButtonClick() {
 		// 1. Input value
 		console.log($('#search-box').val());
-		$('#results').html($('#search-box').val() + "<br>");
-		// $('#results').html($('#search-box').val())
 
 		function imdbSearch(a) {
 		$.get(
 			'http://www.omdbapi.com',
 			{
 				s: $('#search-box').val()
-				// y: year,
-				// type: type,
-				// tomatoes: tomatoes
 			},
 			onSearchResults,
 			'json'
@@ -39,21 +34,19 @@ function onReady() {
 		function onSearchResults(data) {
 			console.log(data);
 			console.log(data.Search[0].imdbID);
-			tomatoMeter(data.Search[0].imdbID);
-			// for (var i = 0; i < data.Search.length; i++) {
-			// 	$('#results').append("<br>" + data.Search[i].Title + "<br>" + data.Search[i].Year + "<br>");
-			// };
-			// $('#results').html(data.Search[0].Title + "<br>" + data.Search[0].Year);
+			for (var i = 0; i < data.Search.length; i++) {
+				$('#title').append("<br>" + data.Search[i].Title + "<br>");
+				$('#year').append("<br>" + data.Search[i].Year + "<br>");
+				tomatoMeter(data.Search[i].imdbID);
+			};
 		}
 
 		function onTomatoResults(data) {
 			console.log(data);
 			console.log(data.Genre);
-			// $('#results').html(data.Title + "<br>" + data.Year + "<br>" + data.Actors);
+			$('#genre').append("<br>" + data.Genre + "<br>");
 		}
 
-		console.log(imdbSearch());
-		// $('#results').html(data.Title.Year.Actors);
+		imdbSearch();
 		}
 }
-
